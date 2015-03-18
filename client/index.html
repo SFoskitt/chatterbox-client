@@ -15,7 +15,17 @@
   <body>
     <div id="main">
       <h1>chatterbox</h1>
-      <!-- Your HTML goes here! -->
+      <form>
+        <div class="inputForm">
+          <input type="text" />
+          <button type="button">Submit</button>
+
+        </div>
+      </form>
+      <div id="messages"></div>
     </div>
+    <script>
+    $().onDocumentReady(app.init()); 
+    </script>
   </body>
 </html>
