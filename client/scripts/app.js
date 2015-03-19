@@ -3,7 +3,6 @@ var app = {
 	server: 'https://api.parse.com/1/classes/chatterbox',
 	init: function(){
 		this.fetch();
-		this.populateRoomSelection();
 	},
 	send: function(message){
 		$.ajax({
@@ -37,10 +36,10 @@ var app = {
 		    	if (!rooms.hasOwnProperty(data.results[i].roomname)){
 		    		rooms[data.results[i].roomname] = data.results[i].roomname;
 			    	var optionString = "<option value='"+ data.results[i].roomname +"'>"+ data.results[i].roomname +"</option>";
-		    		$('#roomSelection').append(optionString);
+		    		$('#roomSelect').append(optionString);
 		    	}
-		    	var messageString = "<div class='message'>Name: "+ data.results[i].username + " : " + data.results[i].text + "</div>"
-		    	$("#messages").append(messageString);
+		    	var messageString = "<div class='chat'>Name: "+ data.results[i].username + " : " + data.results[i].text + "</div>"
+		    	$("#chats").append(messageString);
 		    };
 		  },
 		  error: function (data) {
@@ -50,11 +49,29 @@ var app = {
 		});
 	},
 
-	clearMessages: function(){},
+	clearMessages: function(){
+		$('#chats').children().remove ();
+	},
 
-	addMessage: function(){},
+	addMessage: function(username, text, roomname){
+		var message = {
+			"username" : username,
+			"text" : text,
+			"roomname" : roomname
+		};
+		this.send(message);
+		$("#chats").append("<div class='chat'>Name: "+ username + " : " + text + "</div>")
+	},
 
-	addRoom: function(){},
+	addRoom: function(roomname){
+		var message = {
+			"username" : null,
+			"text" : null,
+			"roomname" : roomname
+		};
+		this.send(message);
+		$("#roomSelect").append("<option value='"+ roomname +"'>"+ roomname +"</option>");
+	},
 
 	addFriend: function(){},
 
