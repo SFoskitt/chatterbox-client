@@ -18,7 +18,7 @@
       <form id="send" >
       <div class="roomSelector">
         <select id="roomSelect">
-          
+          <option value="newRoom">Add new room</option>
         </select>
       </div>
         <div class="inputForm">
@@ -36,6 +36,14 @@
         //alert( "Handler for .submit() called." );
          app.handleSubmit();
          event.preventDefault();
+      });
+      $("#roomSelect").change(function(){
+        var selection = $(":selected.value");
+        console.log("selected = " + selection);
+        if(this.value === "newRoom"){
+          var newRoom = prompt("Enter new room name: ");
+          app.addRoom(newRoom);
+        }
       });
     </script>
   </body>
