@@ -1,7 +1,15 @@
 // YOUR CODE HERE:
 var app = {
 	server: 'https://api.parse.com/1/classes/chatterbox',
+	username: this.username,
+	
+	cleanString: function(string){
+		var re = new RegExp("<|>");
+		return string.replace(re,"");
+	},
+	
 	init: function(){
+
 		this.fetch();
 	},
 	send: function(message){
@@ -27,7 +35,7 @@ var app = {
 		  url: this.server,
 		  crossDomain: true,
 		  type: 'GET',
-		  //data: JSON.parse(message),
+		  data: 'order=-createdAt',
 		  contentType: 'application/json',
 		  success: function (data) {
 		    //console.log('chatterbox: Message fetched');
@@ -40,7 +48,7 @@ var app = {
 			    	var optionString = "<option value='"+ data.results[i].roomname +"'>"+ data.results[i].roomname +"</option>";
 		    		$('#roomSelect').append(optionString);
 		    	}
-		    	var messageString = "<div class='chat'>Name: "+ data.results[i].username + " : " + data.results[i].text + "</div>"
+		    	var messageString = "<div class='chat'>Name: "+ data.results[i].username + " : " + app.cleanString(data.results[i].text) + "</div>"
 		    	$("#chats").append(messageString);
 		    };
 		  },
@@ -63,7 +71,7 @@ var app = {
 			"roomname" : roomname
 		};
 		this.send(message);
-		$("#chats").append("<div class='chat'>Name: "+ username + " : " + text + "</div>")
+		$("#chats").prepend("<div class='chat'>Name: "+ username + " : " + text + "</div>")
 	},
 
 	addRoom: function(roomname){
@@ -80,7 +88,7 @@ var app = {
 
 	handleSubmit: function(){
 		console.log(this);
-		var username = username;
+		var username = window.prompt("Enter your user name:");
 		var text = $("#message").val();
 		var roomname = $("#roomSelect option:selected").text();
 		var message = {
@@ -90,5 +98,9 @@ var app = {
 		};
 		this.addMessage(username, text, roomname);
 	}
+
+	// addUsername: function(username){
+	// 	this.username = username;
+	// }
 };
 
