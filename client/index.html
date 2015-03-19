@@ -15,22 +15,27 @@
   <body>
     <div id="main">
       <h1>chatterbox</h1>
-      <form>
+      <form id="send" >
       <div class="roomSelector">
         <select id="roomSelect">
           
         </select>
       </div>
         <div class="inputForm">
-          <input type="text" />
-          <button type="button">Submit</button>
-
+          <input type="text" id="message" />
+          <input type="submit" class="submit">Submit</input>
         </div>
       </form>
       <div id="chats"></div>
     </div>
     <script>
-    $().onDocumentReady(app.init()); 
+    $(document).ready(function(){
+      app.init()
+      }); 
+    $( "#send" ).submit(function( event ) {
+  alert( "Handler for .submit() called." );
+  event.preventDefault();
+});
     </script>
   </body>
 </html>

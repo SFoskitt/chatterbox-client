@@ -8,6 +8,7 @@ var app = {
 		$.ajax({
 		  // This is the url you should use to communicate with the parse API server.
 		  url: this.server,
+		  crossDomain: true,
 		  type: 'POST',
 		  data: JSON.stringify(message),
 		  contentType: 'application/json',
@@ -24,15 +25,16 @@ var app = {
 		$.ajax({
 		  // This is the url you should use to communicate with the parse API server.
 		  url: this.server,
+		  crossDomain: true,
 		  type: 'GET',
 		  //data: JSON.parse(message),
 		  contentType: 'application/json',
 		  success: function (data) {
-		    console.log('chatterbox: Message fetched');
-		    console.log(data);
+		    //console.log('chatterbox: Message fetched');
+		    //console.log(data);
 		    var rooms = {};
 		    for (var i = 0; i < data.results.length; i++){
-		    	console.log(data);
+		    	//console.log(data);
 		    	if (!rooms.hasOwnProperty(data.results[i].roomname)){
 		    		rooms[data.results[i].roomname] = data.results[i].roomname;
 			    	var optionString = "<option value='"+ data.results[i].roomname +"'>"+ data.results[i].roomname +"</option>";
@@ -54,6 +56,7 @@ var app = {
 	},
 
 	addMessage: function(username, text, roomname){
+		console.log("Hey, I made it");
 		var message = {
 			"username" : username,
 			"text" : text,
@@ -75,5 +78,21 @@ var app = {
 
 	addFriend: function(){},
 
-	handleSubmit: function(){}
+	handleSubmit: function(){
+		console.log(this);
+		var username = username;
+		var text = $("#message").val();
+		var roomname = $("#roomSelect option:selected").text();
+		var message = {
+			"username" : username,
+			"text" : text,
+			"roomname" : roomname
+		};
+		this.addMessage(username, text, roomname);
+	}
 };
+
+$( "#send" ).submit(function( event ) {
+  alert( "Handler for .submit() called." );
+  event.preventDefault();
+});
