@@ -32,10 +32,11 @@
     $(document).ready(function(){
       app.init()
       }); 
-    $( "#send" ).submit(function( event ) {
-  alert( "Handler for .submit() called." );
-  event.preventDefault();
-});
+      $( "#send" ).submit(function( event ) {
+        //alert( "Handler for .submit() called." );
+        app.handleSubmit();
+        event.preventDefault();
+      });
     </script>
   </body>
 </html>
