@@ -2,7 +2,8 @@
 var app = {
 	server: 'https://api.parse.com/1/classes/chatterbox',
 	username: this.username,
-	
+	timer: null,
+
 	cleanString: function(string){
 		if(typeof string !== "string"){
 			return "";
@@ -11,10 +12,6 @@ var app = {
 		return string.replace(re,"");
 	},
 	
-	init: function(){
-
-		this.fetch();
-	},
 	send: function(message){
 		$.ajax({
 		  // This is the url you should use to communicate with the parse API server.
@@ -38,6 +35,7 @@ var app = {
 		if(arguments[0]){
 			console.log("Arguments[0] = " + arguments[0]);
 			query = 'where={"room": "'+arguments[0]+'"}';
+			clearInterval(app.timer);
 		};
 		$.ajax({
 		  // This is the url you should use to communicate with the parse API server.
@@ -106,6 +104,13 @@ var app = {
 			"roomname" : roomname
 		};
 		this.addMessage(username, text, roomname);
+	},
+	init: function(){
+		this.fetch();
+		var that = this;
+		app.timer = setInterval(function(){
+			return that.fetch();
+		}, 10000);
 	}
 
 	// addUsername: function(username){
