@@ -33,8 +33,12 @@ var app = {
 		this.clearMessages();
 		var query = 'order=-createdAt';
 		if(arguments[0]){
+			if(arguments[1]){
 			console.log("Arguments[0] = " + arguments[0]);
 			query = 'where={"room": "'+arguments[0]+'"}';
+			} else {
+				query = 'where={"username": "'+arguments[0]+'"}';
+			};
 			clearInterval(app.timer);
 		};
 		$.ajax({

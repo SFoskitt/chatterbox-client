@@ -44,9 +44,12 @@
           var newRoom = prompt("Enter new room name: ");
           app.addRoom(newRoom);
         } else {
-          app.fetch(selection);
+          app.fetch(selection, true);
         };
       });
+      $(document).on('click', 'div .chat', (function(){
+        alert("clicked on chat div");
+      }));
     </script>
   </body>
 </html>
