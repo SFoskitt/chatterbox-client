@@ -33,12 +33,18 @@ var app = {
 		});
 	},
 	fetch: function(){
+		this.clearMessages();
+		var query = 'order=-createdAt';
+		if(arguments[0]){
+			console.log("Arguments[0] = " + arguments[0]);
+			query = 'where={"room": "'+arguments[0]+'"}';
+		};
 		$.ajax({
 		  // This is the url you should use to communicate with the parse API server.
 		  url: this.server,
 		  crossDomain: true,
 		  type: 'GET',
-		  data: 'order=-createdAt',
+		  data: query,
 		  contentType: 'application/json',
 		  success: function (data) {
 		    //console.log('chatterbox: Message fetched');

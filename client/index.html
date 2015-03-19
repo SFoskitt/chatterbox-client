@@ -38,12 +38,14 @@
          event.preventDefault();
       });
       $("#roomSelect").change(function(){
-        var selection = $(":selected.value");
+        var selection = $(":selected").text();
         console.log("selected = " + selection);
         if(this.value === "newRoom"){
           var newRoom = prompt("Enter new room name: ");
           app.addRoom(newRoom);
-        }
+        } else {
+          app.fetch(selection);
+        };
       });
     </script>
   </body>
