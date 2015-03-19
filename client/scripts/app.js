@@ -4,7 +4,10 @@ var app = {
 	username: this.username,
 	
 	cleanString: function(string){
-		var re = new RegExp("<|>");
+		if(typeof string !== "string"){
+			return "";
+		}
+		var re = new RegExp("<|>|addEventListener", "g");
 		return string.replace(re,"");
 	},
 	
@@ -39,7 +42,7 @@ var app = {
 		  contentType: 'application/json',
 		  success: function (data) {
 		    //console.log('chatterbox: Message fetched');
-		    //console.log(data);
+		    console.log(data);
 		    var rooms = {};
 		    for (var i = 0; i < data.results.length; i++){
 		    	//console.log(data);
