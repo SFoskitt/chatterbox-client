@@ -63,6 +63,7 @@ var app = {
 		    	var messageString = "<div class='chat'>Name: "+ data.results[i].username + " : " + app.cleanString(data.results[i].text) + "</div>"
 		    	$("#chats").append(messageString);
 		    };
+		    app.addFriend();
 		  },
 		  error: function (data) {
 		    // See: https://developer.mozilla.org/en-US/docs/Web/API/console.error
@@ -83,7 +84,7 @@ var app = {
 			"roomname" : roomname
 		};
 		this.send(message);
-		$("#chats").prepend("<div class='chat'>Name: "+ username + " : " + text + "</div>")
+		$("#chats").prepend("<div class='chat username'>Name: "+ username + " : " + text + "</div>")
 	},
 
 	addRoom: function(roomname){
@@ -101,11 +102,11 @@ var app = {
 		var kids = $('#chats').children();
 		// console.log("Kids are " + kids + " " + typeof kids + " & length is " + kids.length);
 		for (var i = 0; i < kids.length; i++){
-			// console.log("kids[i] " + kids[i].innerText);
+			console.log("addFriend called");
 			var divContent = kids[i].innerText;
-			 if(divContent.indexOf(name) >= 0){
+			 if(divContent.indexOf(name) >= 0 || this.friends.hasOwnProperty(app.extractName(divContent))){
 				 kids[i].className += " username";
-				 console.log("Kids[i] style " + kids[i].className);
+				 console.log("Kids[i] " + kids[i].className);
 			 };
 			// console.log("child is " + child);
 		};
