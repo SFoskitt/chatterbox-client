@@ -48,7 +48,8 @@
         };
       });
       $(document).on('click', 'div .chat', (function(){
-        alert("clicked on chat div");
+        // alert("username?" + app.extractName($( this).text()));
+        app.addFriend(app.extractName($(this).text()));
       }));
     </script>
   </body>

@@ -3,6 +3,7 @@ var app = {
 	server: 'https://api.parse.com/1/classes/chatterbox',
 	username: this.username,
 	timer: null,
+	friends: {},
 
 	cleanString: function(string){
 		if(typeof string !== "string"){
@@ -95,7 +96,20 @@ var app = {
 		$("#roomSelect").append("<option value='"+ roomname +"'>"+ roomname +"</option>");
 	},
 
-	addFriend: function(){},
+	addFriend: function(name){
+		this.friends[name] = name;
+		var kids = $('#chats').children();
+		// console.log("Kids are " + kids + " " + typeof kids + " & length is " + kids.length);
+		for (var i = 0; i < kids.length; i++){
+			// console.log("kids[i] " + kids[i].innerText);
+			var divContent = kids[i].innerText;
+			 if(divContent.indexOf(name) >= 0){
+				 kids[i].className += " username";
+				 console.log("Kids[i] style " + kids[i].className);
+			 };
+			// console.log("child is " + child);
+		};
+	},
 
 	handleSubmit: function(){
 		console.log(this);
@@ -109,6 +123,12 @@ var app = {
 		};
 		this.addMessage(username, text, roomname);
 	},
+
+	extractName: function(text){
+		var result = text.substring(text.indexOf(":"), text.lastIndexOf(":"));
+		return result;
+	},
+
 	init: function(){
 		this.fetch();
 		var that = this;
